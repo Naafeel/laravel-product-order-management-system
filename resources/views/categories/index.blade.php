@@ -24,9 +24,9 @@
             </a>
         </div>
 
-        <!-- Success Message -->
+        <!-- Success Message (Shows up after Create, Update, or Delete) -->
         @if(session('success'))
-            <div class="bg-green-100 text-green-800 px-6 py-4 rounded-lg mb-4">
+            <div class="bg-green-100 border border-green-400 text-green-800 px-6 py-4 rounded-lg mb-4">
                 {{ session('success') }}
             </div>
         @endif
@@ -56,9 +56,15 @@
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Inactive</span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="/categories/{{ $category->id }}/edit" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
-                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-4">
+                                <a href="/categories/{{ $category->id }}/edit" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                
+                                <!-- THE DELETE FORM -->
+                                <form action="/categories/{{ $category->id }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this category? This cannot be undone!');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     @empty

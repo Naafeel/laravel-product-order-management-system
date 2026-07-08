@@ -29,48 +29,42 @@ class CategoryController extends Controller
         $validated['is_active'] = $request->has('is_active');
         Category::create($validated);
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Category created successfully!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Category $category)
     {
-        // Send the specific category data to the edit view
         return view('categories.edit', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Category $category)
     {
-        // 1. Validate the data. 
-        // Notice the unique rule now ignores the current category's ID so it doesn't conflict with itself!
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
             'description' => 'nullable|string',
         ]);
 
-        // 2. Handle the checkbox
         $validated['is_active'] = $request->has('is_active');
-
-        // 3. Update the database row!
         $category->update($validated);
 
-        // 4. Send the user back to the list
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
     }
 
     public function show(Category $category)
     {
-        // We will write this later
+        // We don't need this for now
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Category $category)
     {
-        // We will write this later
+        // 1. Delete the category from the database
+        $category->delete();
+
+        // 2. Send the user back to the list with a success message
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
     }
 }
