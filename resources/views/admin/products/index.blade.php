@@ -48,31 +48,19 @@
                     
                     @forelse($products as $product)
                         <tr>
-                            <!-- Image Column -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($product->image)
-                                    <!-- We use asset('storage/') because we saved it in the public disk -->
                                     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-16 h-16 rounded-lg object-cover">
                                 @else
                                     <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 text-xs">No Img</div>
                                 @endif
                             </td>
-                            
-                            <!-- Name Column -->
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $product->name }}</td>
-                            
-                            <!-- Category Column (Using the relationship!) -->
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $product->category ? $product->category->name : 'No Category' }}
                             </td>
-                            
-                            <!-- Price Column -->
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">${{ number_format($product->price, 2) }}</td>
-                            
-                            <!-- Stock Column -->
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $product->stock }}</td>
-                            
-                            <!-- Status Column -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($product->is_active)
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
@@ -80,11 +68,16 @@
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Inactive</span>
                                 @endif
                             </td>
-                            
-                            <!-- Actions Column -->
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-4">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                                <!-- REAL EDIT LINK -->
+                                <a href="/admin/products/{{ $product->id }}/edit" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                
+                                <!-- REAL DELETE FORM -->
+                                <form action="/admin/products/{{ $product->id }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this product? This cannot be undone!');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     @empty
