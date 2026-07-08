@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 // ==========================================
 // WEEK 1: PUBLIC PAGES
@@ -32,6 +33,7 @@ Route::get('/login', function () {
 // WEEK 2: ADMIN / CRUD PAGES
 // ==========================================
 
-// This single line creates all 7 CRUD routes for categories 
-// (index, create, store, show, edit, update, destroy)
 Route::resource('categories', CategoryController::class);
+
+// We use 'admin/products' so it doesn't clash with the public /products page from Week 1
+Route::resource('admin/products', ProductController::class);
