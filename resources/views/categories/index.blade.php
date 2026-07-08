@@ -8,7 +8,6 @@
 </head>
 <body class="bg-gray-100">
 
-    <!-- Simple Admin Header -->
     <nav class="bg-white shadow mb-8">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold text-indigo-600">Zulacart Admin</h1>
@@ -18,7 +17,6 @@
 
     <div class="max-w-7xl mx-auto px-6">
         
-        <!-- Page Title and Add Button -->
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-3xl font-bold text-gray-800">Categories</h2>
             <a href="/categories/create" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700">
@@ -26,7 +24,13 @@
             </a>
         </div>
 
-        <!-- Categories Table -->
+        <!-- Success Message -->
+        @if(session('success'))
+            <div class="bg-green-100 text-green-800 px-6 py-4 rounded-lg mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="bg-white rounded-xl shadow overflow-hidden">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
@@ -40,7 +44,6 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     
-                    <!-- This loop checks if we have categories -->
                     @forelse($categories as $category)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $category->id }}</td>
@@ -54,12 +57,11 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+                                <a href="/categories/{{ $category->id }}/edit" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
                                 <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
                             </td>
                         </tr>
                     @empty
-                        <!-- If there are no categories, show this message -->
                         <tr>
                             <td colspan="5" class="px-6 py-8 text-center text-gray-500">
                                 No categories found. Please add your first category!
