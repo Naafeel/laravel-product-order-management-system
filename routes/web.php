@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+
+// ==========================================
+// WEEK 1: PUBLIC PAGES
+// ==========================================
 
 Route::get('/', function () {
     return view('home');
@@ -21,3 +26,12 @@ Route::get('/cart', function () {
 Route::get('/login', function () {
     return view('auth.login');
 });
+
+
+// ==========================================
+// WEEK 2: ADMIN / CRUD PAGES
+// ==========================================
+
+// This single line creates all 7 CRUD routes for categories 
+// (index, create, store, show, edit, update, destroy)
+Route::resource('categories', CategoryController::class);
