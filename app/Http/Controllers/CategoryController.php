@@ -12,10 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // 1. Ask the database for ALL categories
         $categories = Category::all();
-
-        // 2. Send them to the 'categories.index' blade file
         return view('categories.index', compact('categories'));
     }
 
@@ -24,7 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        // We will write this later
+        // Just show the empty form
         return view('categories.create');
     }
 
@@ -33,7 +30,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        // We will write this later
+        // 1. Validate the data coming from the form
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories,slug',
+            'description' => 'nullable|string',
+        ]);
+
+        // 2. Handle the checkbox (if unchecked, it sends nothing, so we make it false)
+        $validated['is_active'] = $request->has('is_active');
+
+        // 3. Save it to the database!
+        Category::create($validated);
+
+        // 4. Send the user back to the categories list
+        return redirect()->route('categories.index');
     }
 
     /**
