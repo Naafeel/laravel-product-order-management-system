@@ -57,7 +57,7 @@
                     </div>
 
                     <button type="submit" class="w-full bg-green-600 text-white py-4 rounded-xl text-xl font-semibold hover:bg-green-700 transition">
-                        Place Order (${ { number_format($total, 2) }})
+                        Place Order (${{ number_format($total, 2) }})
                     </button>
                 </form>
             </div>
