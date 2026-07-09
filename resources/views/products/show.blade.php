@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details - Zulacart</title>
+    <title>{{ $product->name }} - Zulacart</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
@@ -34,37 +34,39 @@
             
             <!-- Product Image -->
             <div>
-                <img src="https://picsum.photos/id/{{ $id * 10 }}/600/500" 
-                     class="w-full rounded-2xl shadow" alt="Product">
+                <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/600x500?text=No+Image' }}" 
+                     class="w-full rounded-2xl shadow" alt="{{ $product->name }}">
             </div>
 
             <!-- Product Info -->
             <div>
-                <h1 class="text-4xl font-bold mb-4">
-                    @if($id == 1) Wireless Headphones @else Smart Watch @endif
-                </h1>
+                <h1 class="text-4xl font-bold mb-4">{{ $product->name }}</h1>
                 
-                <p class="text-3xl font-bold text-indigo-600 mb-6">
-                    @if($id == 1) $89.99 @else $149.99 @endif
-                </p>
+                <p class="text-3xl font-bold text-indigo-600 mb-6">${{ number_format($product->price, 2) }}</p>
 
                 <div class="prose mb-8">
-                    <p>This is a high-quality product with excellent features. Perfect for daily use.</p>
-                    <ul class="list-disc pl-5 mt-4">
-                        <li>Premium build quality</li>
-                        <li>Long battery life</li>
+                    <p>{{ $product->description ?? 'No description available for this product.' }}</p>
+                    <ul class="list-disc pl-5 mt-4 text-gray-600">
+                        <li>Stock Available: <strong>{{ $product->stock }}</strong></li>
+                        <li>Category: <strong>{{ $product->category ? $product->category->name : 'Uncategorized' }}</strong></li>
                         <li>Fast delivery</li>
                     </ul>
                 </div>
 
                 <!-- THE REAL ADD TO CART FORM -->
-                <form action="/cart/add/{{ $id }}" method="POST" class="inline-block">
-                    @csrf
-                    <button type="submit" 
-                            class="bg-indigo-600 text-white px-10 py-4 rounded-xl text-lg font-semibold hover:bg-indigo-700">
-                        Add to Cart
+                @if($product->stock > 0)
+                    <form action="/cart/add/{{ $product->id }}" method="POST" class="inline-block">
+                        @csrf
+                        <button type="submit" 
+                                class="bg-indigo-600 text-white px-10 py-4 rounded-xl text-lg font-semibold hover:bg-indigo-700">
+                            Add to Cart
+                        </button>
+                    </form>
+                @else
+                    <button disabled class="bg-gray-400 text-white px-10 py-4 rounded-xl text-lg font-semibold cursor-not-allowed">
+                        Out of Stock
                     </button>
-                </form>
+                @endif
 
                 <a href="/products" 
                    class="ml-4 text-gray-600 hover:text-gray-800">

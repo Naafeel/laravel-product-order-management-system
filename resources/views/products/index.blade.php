@@ -26,37 +26,26 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
             
-            <!-- Sample Product 1 -->
-            <div class="bg-white rounded-xl shadow hover:shadow-lg transition">
-                <img src="https://picsum.photos/id/20/300/200" 
-                     class="w-full h-48 object-cover rounded-t-xl" alt="Product">
-                <div class="p-4">
-                    <h3 class="font-semibold text-lg">Wireless Headphones</h3>
-                    <p class="text-gray-600 text-sm">Premium sound quality</p>
-                    <p class="text-2xl font-bold text-indigo-600 mt-2">$89.99</p>
-                    <a href="/product/1" 
-                       class="block text-center bg-indigo-600 text-white py-2 mt-4 rounded-lg hover:bg-indigo-700">
-                        View Details
-                    </a>
+            <!-- LOOP THROUGH REAL PRODUCTS FROM DATABASE -->
+            @forelse($products as $product)
+                <div class="bg-white rounded-xl shadow hover:shadow-lg transition">
+                    <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/300x200?text=No+Image' }}" 
+                         class="w-full h-48 object-cover rounded-t-xl" alt="{{ $product->name }}">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg">{{ $product->name }}</h3>
+                        <p class="text-gray-600 text-sm">{{ Str::limit($product->description, 40) }}</p>
+                        <p class="text-2xl font-bold text-indigo-600 mt-2">${{ number_format($product->price, 2) }}</p>
+                        <a href="/product/{{ $product->id }}" 
+                           class="block text-center bg-indigo-600 text-white py-2 mt-4 rounded-lg hover:bg-indigo-700">
+                            View Details
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @empty
+                <!-- If there are no active products in the database -->
+                <p class="text-gray-500 text-center col-span-4 py-8 text-xl">No products available right now. Please check back later!</p>
+            @endforelse
 
-            <!-- Sample Product 2 -->
-            <div class="bg-white rounded-xl shadow hover:shadow-lg transition">
-                <img src="https://picsum.photos/id/60/300/200" 
-                     class="w-full h-48 object-cover rounded-t-xl" alt="Product">
-                <div class="p-4">
-                    <h3 class="font-semibold text-lg">Smart Watch</h3>
-                    <p class="text-gray-600 text-sm">Fitness & Notifications</p>
-                    <p class="text-2xl font-bold text-indigo-600 mt-2">$149.99</p>
-                    <a href="/product/2" 
-                       class="block text-center bg-indigo-600 text-white py-2 mt-4 rounded-lg hover:bg-indigo-700">
-                        View Details
-                    </a>
-                </div>
-            </div>
-
-            <!-- Add more products like this later -->
         </div>
     </div>
 
