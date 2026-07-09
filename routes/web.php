@@ -4,25 +4,24 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
-use App\Models\Product; // WE ADDED THIS TO FETCH DATA
+use App\Http\Controllers\CheckoutController;
+use App\Models\Product;
 
 // ==========================================
-// WEEK 1: PUBLIC PAGES (NOW CONNECTED TO DATABASE!)
+// WEEK 1: PUBLIC PAGES
 // ==========================================
 
 Route::get('/', function () {
     return view('home');
 });
 
-// Fetch ONLY active products from the database
 Route::get('/products', function () {
     $products = Product::where('is_active', true)->get();
     return view('products.index', compact('products'));
 });
 
-// Fetch a specific product by its ID
 Route::get('/product/{id}', function ($id) {
-    $product = Product::findOrFail($id); // This will show a 404 if the ID doesn't exist
+    $product = Product::findOrFail($id);
     return view('products.show', compact('product'));
 });
 
@@ -42,8 +41,13 @@ Route::resource('admin/products', ProductController::class);
 
 
 // ==========================================
-// WEEK 3: CART LOGIC
+// WEEK 3: CART & CHECKOUT LOGIC
 // ==========================================
 
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+// CHECKOUT ROUTES
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');

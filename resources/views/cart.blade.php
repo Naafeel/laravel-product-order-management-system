@@ -78,10 +78,11 @@
                     <span class="font-semibold">Total:</span>
                     <span class="font-bold text-3xl text-indigo-600">${{ number_format($total, 2) }}</span>
                 </div>
-                <button onclick="alert('Checkout page coming in the next step!')" 
-                        class="w-full mt-8 bg-green-600 text-white py-5 rounded-2xl text-xl font-semibold hover:bg-green-700">
+                
+                <!-- FIXED CHECKOUT LINK -->
+                <a href="/checkout" class="block text-center w-full mt-8 bg-green-600 text-white py-5 rounded-2xl text-xl font-semibold hover:bg-green-700">
                     Proceed to Checkout
-                </button>
+                </a>
             </div>
         @endif
     </div>
