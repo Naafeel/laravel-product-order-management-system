@@ -8,22 +8,18 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminOrderController;
+use App\Http\Controllers\CustomerAuthController; // WE ADDED THIS
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Product;
-use App\Models\Category; // Added this so we don't have to use \App\Models\Category
+use App\Models\Category;
 
 // ==========================================
 // WEEK 1: PUBLIC PAGES
 // ==========================================
 
-// FIXED: This is now one single, clean route!
 Route::get('/', function () {
-    // Get the latest 4 active products
     $featuredProducts = Product::where('is_active', true)->latest()->take(4)->get();
-    
-    // Get the first 4 active categories
     $categories = Category::where('is_active', true)->take(4)->get();
-
     return view('home', compact('featuredProducts', 'categories'));
 });
 
@@ -39,9 +35,20 @@ Route::get('/product/{id}', function ($id) {
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+
+// ==========================================
+// CUSTOMER AUTHENTICATION (NEW!)
+// ==========================================
+
+Route::get('/register', [CustomerAuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [CustomerAuthController::class, 'register']);
+Route::get('/login', [CustomerAuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [CustomerAuthController::class, 'login']);
+Route::post('/logout', [CustomerAuthController::class, 'logout'])->name('logout');
+
+// This route is protected by Laravel's built-in 'auth' middleware.
+// If you are not logged in, it will automatically redirect you to /login!
+Route::get('/account', [CustomerAuthController::class, 'account'])->middleware('auth');
 
 
 // ==========================================
@@ -70,15 +77,9 @@ Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('adm
 // ==========================================
 
 Route::middleware([AdminMiddleware::class])->prefix('admin')->group(function () {
-    
-    // The Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-
-    // The CRUD routes we built in Week 2
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
-
-    // WEEK 4: ORDER MANAGEMENT ROUTES
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
     Route::put('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
 });

@@ -18,7 +18,20 @@
             <a href="/" class="hover:text-indigo-600 font-medium">Home</a>
             <a href="/products" class="hover:text-indigo-600 font-medium">Products</a>
             <a href="/cart" class="hover:text-indigo-600 font-medium relative">Cart</a>
-            <a href="/login" class="bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 font-medium">Login</a>
+            
+            <!-- DYNAMIC AUTH LINKS -->
+            @guest
+                <a href="/login" class="text-gray-600 hover:text-indigo-600 font-medium">Login</a>
+                <a href="/register" class="bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 font-medium">Register</a>
+            @endguest
+
+            @auth
+                <a href="/account" class="text-gray-600 hover:text-indigo-600 font-medium">My Account</a>
+                <form action="/logout" method="POST" class="inline-block">
+                    @csrf
+                    <button type="submit" class="text-red-600 hover:text-red-800 font-medium">Logout</button>
+                </form>
+            @endauth
         </div>
     </div>
 </nav>

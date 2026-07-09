@@ -62,7 +62,7 @@ class CheckoutController extends Controller
             
             // Create the main Order
             $order = Order::create([
-                'user_id' => 1, // We use our Dummy Guest User ID here! (Week 4 we will change this to the real logged-in user)
+                'user_id' => auth()->id(), // Get the ID of the currently logged-in customer! (Week 4 we will change this to the real logged-in user)
                 'total_amount' => $total,
                 'status' => 'pending',
                 'shipping_address' => $request->shipping_address,
