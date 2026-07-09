@@ -7,16 +7,24 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\AdminOrderController; // WE ADDED THIS
+use App\Http\Controllers\AdminOrderController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Product;
+use App\Models\Category; // Added this so we don't have to use \App\Models\Category
 
 // ==========================================
 // WEEK 1: PUBLIC PAGES
 // ==========================================
 
+// FIXED: This is now one single, clean route!
 Route::get('/', function () {
-    return view('home');
+    // Get the latest 4 active products
+    $featuredProducts = Product::where('is_active', true)->latest()->take(4)->get();
+    
+    // Get the first 4 active categories
+    $categories = Category::where('is_active', true)->take(4)->get();
+
+    return view('home', compact('featuredProducts', 'categories'));
 });
 
 Route::get('/products', function () {
