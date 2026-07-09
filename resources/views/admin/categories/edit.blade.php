@@ -8,13 +8,7 @@
 </head>
 <body class="bg-gray-100">
 
-    <nav class="bg-white shadow mb-8">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-indigo-600">Zulacart Admin</h1>
-            <!-- FIXED: Added /admin to the URL -->
-            <a href="/admin/categories" class="text-gray-600 hover:text-indigo-600">← Back to Categories</a>
-        </div>
-    </nav>
+    @include('partials.admin-navbar')
 
     <div class="max-w-3xl mx-auto px-6">
         

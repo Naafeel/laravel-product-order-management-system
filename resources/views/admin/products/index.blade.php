@@ -14,7 +14,7 @@
             <a href="/" class="text-gray-600 hover:text-indigo-600">Back to Website</a>
         </div>
     </nav> -->
-    @include('partials.navbar')
+    @include('partials.admin-navbar')
 
     <div class="max-w-7xl mx-auto px-6">
         

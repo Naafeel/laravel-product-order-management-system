@@ -9,25 +9,7 @@
 <body class="bg-gray-100">
 
     <!-- Admin Header -->
-    <nav class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-indigo-600">Zulacart Admin</h1>
-            <div class="flex items-center gap-6">
-                <a href="/admin/dashboard" class="text-gray-600 hover:text-indigo-600 font-semibold">Dashboard</a>
-                <a href="/admin/products" class="text-gray-600 hover:text-indigo-600">Products</a>
-                <a href="/admin/categories" class="text-gray-600 hover:text-indigo-600">Categories</a>
-                <!-- WE ADDED THIS LINE -->
-                <a href="/admin/orders" class="text-gray-600 hover:text-indigo-600">Orders</a>
-                <a href="/" class="text-gray-600 hover:text-indigo-600">View Website</a>
-                
-                <!-- Logout Button -->
-                <form action="/admin/logout" method="POST" class="inline-block">
-                    @csrf
-                    <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">Logout</button>
-                </form>
-            </div>
-        </div>
-    </nav>
+    @include('partials.admin-navbar')
 
     <div class="max-w-7xl mx-auto px-6 py-12">
         <h2 class="text-3xl font-bold text-gray-800 mb-8">Welcome back, Admin!</h2>
