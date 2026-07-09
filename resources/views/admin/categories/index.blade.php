@@ -19,12 +19,12 @@
         
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-3xl font-bold text-gray-800">Categories</h2>
-            <a href="/categories/create" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700">
+            <!-- FIXED: Added /admin to the URL -->
+            <a href="/admin/categories/create" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700">
                 + Add New Category
             </a>
         </div>
 
-        <!-- Success Message (Shows up after Create, Update, or Delete) -->
         @if(session('success'))
             <div class="bg-green-100 border border-green-400 text-green-800 px-6 py-4 rounded-lg mb-4">
                 {{ session('success') }}
@@ -57,10 +57,10 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-4">
-                                <a href="/categories/{{ $category->id }}/edit" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                <!-- FIXED: Added /admin to the URLs -->
+                                <a href="/admin/categories/{{ $category->id }}/edit" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                 
-                                <!-- THE DELETE FORM -->
-                                <form action="/categories/{{ $category->id }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this category? This cannot be undone!');">
+                                <form action="/admin/categories/{{ $category->id }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this category?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>

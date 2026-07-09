@@ -10,12 +10,14 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        // UPDATED: Added 'admin.' to the view path
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function create()
     {
-        return view('categories.create');
+        // UPDATED: Added 'admin.' to the view path
+        return view('admin.categories.create');
     }
 
     public function store(Request $request)
@@ -29,12 +31,14 @@ class CategoryController extends Controller
         $validated['is_active'] = $request->has('is_active');
         Category::create($validated);
 
-        return redirect()->route('categories.index')->with('success', 'Category created successfully!');
+        // UPDATED: Redirect to the new admin URL
+        return redirect('/admin/categories')->with('success', 'Category created successfully!');
     }
 
     public function edit(Category $category)
     {
-        return view('categories.edit', compact('category'));
+        // UPDATED: Added 'admin.' to the view path
+        return view('admin.categories.edit', compact('category'));
     }
 
     public function update(Request $request, Category $category)
@@ -48,23 +52,16 @@ class CategoryController extends Controller
         $validated['is_active'] = $request->has('is_active');
         $category->update($validated);
 
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
+        // UPDATED: Redirect to the new admin URL
+        return redirect('/admin/categories')->with('success', 'Category updated successfully!');
     }
 
-    public function show(Category $category)
-    {
-        // We don't need this for now
-    }
+    public function show(Category $category) { }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Category $category)
     {
-        // 1. Delete the category from the database
         $category->delete();
-
-        // 2. Send the user back to the list with a success message
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
+        // UPDATED: Redirect to the new admin URL
+        return redirect('/admin/categories')->with('success', 'Category deleted successfully!');
     }
 }
