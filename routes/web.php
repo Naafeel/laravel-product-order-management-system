@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 // ==========================================
 // WEEK 1: PUBLIC PAGES
@@ -20,9 +21,8 @@ Route::get('/product/{id}', function ($id) {
     return view('products.show', ['id' => $id]);
 });
 
-Route::get('/cart', function () {
-    return view('cart');
-});
+// THIS IS THE NEW CART ROUTE (Replaces the old simple one)
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -34,6 +34,12 @@ Route::get('/login', function () {
 // ==========================================
 
 Route::resource('categories', CategoryController::class);
-
-// We use 'admin/products' so it doesn't clash with the public /products page from Week 1
 Route::resource('admin/products', ProductController::class);
+
+
+// ==========================================
+// WEEK 3: CART LOGIC
+// ==========================================
+
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');

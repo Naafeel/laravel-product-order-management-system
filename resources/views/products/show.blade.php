@@ -14,11 +14,20 @@
             <div class="space-x-8">
                 <a href="/" class="hover:text-indigo-600">Home</a>
                 <a href="/products" class="hover:text-indigo-600">Products</a>
-                <a href="/cart" class="hover:text-indigo-600">Cart</a>
+                <a href="/cart" class="hover:text-indigo-600 font-semibold">Cart</a>
                 <a href="/login" class="hover:text-indigo-600">Login</a>
             </div>
         </div>
     </nav>
+
+    <!-- Success Message -->
+    @if(session('success'))
+        <div class="max-w-7xl mx-auto px-6 mt-4">
+            <div class="bg-green-100 border border-green-400 text-green-800 px-6 py-4 rounded-lg">
+                {{ session('success') }}
+            </div>
+        </div>
+    @endif
 
     <div class="max-w-7xl mx-auto px-6 py-12">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -48,10 +57,14 @@
                     </ul>
                 </div>
 
-                <button onclick="addToCart({{ $id }})" 
-                        class="bg-indigo-600 text-white px-10 py-4 rounded-xl text-lg font-semibold hover:bg-indigo-700">
-                    Add to Cart
-                </button>
+                <!-- THE REAL ADD TO CART FORM -->
+                <form action="/cart/add/{{ $id }}" method="POST" class="inline-block">
+                    @csrf
+                    <button type="submit" 
+                            class="bg-indigo-600 text-white px-10 py-4 rounded-xl text-lg font-semibold hover:bg-indigo-700">
+                        Add to Cart
+                    </button>
+                </form>
 
                 <a href="/products" 
                    class="ml-4 text-gray-600 hover:text-gray-800">
@@ -60,12 +73,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function addToCart(id) {
-            alert("Product " + id + " added to cart! (Cart logic coming soon)");
-        }
-    </script>
 
 </body>
 </html>
