@@ -6,10 +6,11 @@
     <title>Add Category - Zulacart Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 ml-64">
 
     @include('partials.admin-navbar')
 
+    <main class="p-8">
     <div class="max-w-3xl mx-auto px-6">
         
         <h2 class="text-3xl font-bold text-gray-800 mb-6">Add New Category</h2>
@@ -56,6 +57,7 @@
             </form>
         </div>
     </div>
+    </main>
 
 </body>
 </html>

@@ -6,7 +6,7 @@
     <title>Add Product - Zulacart Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 ml-64">
 
     <!-- <nav class="bg-white shadow mb-8">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -16,6 +16,7 @@
     </nav> -->
     @include('partials.admin-navbar')
 
+    <main class="p-8">
     <div class="max-w-3xl mx-auto px-6">
         
         <h2 class="text-3xl font-bold text-gray-800 mb-6">Add New Product</h2>
@@ -107,6 +108,7 @@
             </form>
         </div>
     </div>
+    </main>
 
 </body>
 </html>
