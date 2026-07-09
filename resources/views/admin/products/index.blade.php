@@ -8,12 +8,13 @@
 </head>
 <body class="bg-gray-100">
 
-    <nav class="bg-white shadow mb-8">
+    <!-- <nav class="bg-white shadow mb-8">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold text-indigo-600">Zulacart Admin</h1>
             <a href="/" class="text-gray-600 hover:text-indigo-600">Back to Website</a>
         </div>
-    </nav>
+    </nav> -->
+    @include('partials.navbar')
 
     <div class="max-w-7xl mx-auto px-6">
         

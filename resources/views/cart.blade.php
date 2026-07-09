@@ -8,7 +8,7 @@
 </head>
 <body class="bg-gray-50">
 
-    <nav class="bg-white shadow">
+    <!-- <nav class="bg-white shadow">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-3xl font-bold text-indigo-600">Zulacart</h1>
             <div class="space-x-8">
@@ -18,7 +18,8 @@
                 <a href="/login" class="hover:text-indigo-600">Login</a>
             </div>
         </div>
-    </nav>
+    </nav> -->
+    @include('partials.navbar')
 
     <div class="max-w-7xl mx-auto px-6 py-12">
         <h2 class="text-4xl font-bold mb-8">Shopping Cart</h2>
