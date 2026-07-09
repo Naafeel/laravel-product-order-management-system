@@ -16,6 +16,8 @@
                 <a href="/admin/dashboard" class="text-gray-600 hover:text-indigo-600 font-semibold">Dashboard</a>
                 <a href="/admin/products" class="text-gray-600 hover:text-indigo-600">Products</a>
                 <a href="/admin/categories" class="text-gray-600 hover:text-indigo-600">Categories</a>
+                <!-- WE ADDED THIS LINE -->
+                <a href="/admin/orders" class="text-gray-600 hover:text-indigo-600">Orders</a>
                 <a href="/" class="text-gray-600 hover:text-indigo-600">View Website</a>
                 
                 <!-- Logout Button -->

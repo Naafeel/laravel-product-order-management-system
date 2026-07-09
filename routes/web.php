@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminOrderController; // WE ADDED THIS
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Product;
 
@@ -60,8 +61,6 @@ Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('adm
 // WEEK 2 & 4: PROTECTED ADMIN PAGES
 // ==========================================
 
-// All routes inside this group are protected by the AdminMiddleware.
-// If you are not logged in as an admin, you cannot see ANY of these pages!
 Route::middleware([AdminMiddleware::class])->prefix('admin')->group(function () {
     
     // The Dashboard
@@ -69,5 +68,9 @@ Route::middleware([AdminMiddleware::class])->prefix('admin')->group(function () 
 
     // The CRUD routes we built in Week 2
     Route::resource('categories', CategoryController::class);
-    Route::resource('products', ProductController::class); // Notice we removed 'admin/' from the resource because the prefix handles it!
+    Route::resource('products', ProductController::class);
+
+    // WEEK 4: ORDER MANAGEMENT ROUTES
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
+    Route::put('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
 });
