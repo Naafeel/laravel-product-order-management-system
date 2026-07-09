@@ -16,4 +16,14 @@ class Category extends Model
         'image',
         'is_active'
     ];
+
+    /**
+     * THE MISSING BRIDGE:
+     * This allows us to do things like: $category->products 
+     * or count them using Category::withCount('products')
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
